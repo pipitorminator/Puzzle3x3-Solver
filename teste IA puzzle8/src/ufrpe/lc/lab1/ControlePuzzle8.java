@@ -6,7 +6,7 @@ public class ControlePuzzle8 {
 
 	public int[][] iniciarNovoJogo() {
 
-		int[][] retorno = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+		int[][] retorno = { { 1, 2, 3 }, { 4, 5, 6 }, {7, 8, 9 } };
 		Random rand = new Random();
 		for (int i = 0; i < 2000; i++) {
 			retorno = tratarJogada(retorno, rand.nextInt(3), rand.nextInt(3));
@@ -60,15 +60,19 @@ public class ControlePuzzle8 {
 	 */
 	public int[][] gerarJogada(int[][] matrizJogo) {
 
-		Grafo MatrizCPU = new Grafo(matrizJogo);
-		matrizJogo = MatrizCPU.buscaGrafo();
+		Solver MatrizCPU = new Solver(matrizJogo);
+		matrizJogo = MatrizCPU.gerarJogadaIA();
 		return matrizJogo;
 	}
 
 	public boolean compararArrays(int[][] matrizJogo, int[][] matrizNovaJogada) {
 		boolean match = true;
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
+
+		if (matrizJogo.length != matrizNovaJogada.length && matrizJogo[0].length != matrizNovaJogada[0].length) {
+			return false;
+		}
+		for (int i = 0; i < matrizJogo.length; i++) {
+			for (int j = 0; j < matrizJogo[0].length; j++) {
 				if (matrizJogo[i][j] != matrizNovaJogada[i][j]) {
 					match = false;
 					break;
